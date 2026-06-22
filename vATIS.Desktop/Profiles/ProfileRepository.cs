@@ -181,7 +181,7 @@ public class ProfileRepository : IProfileRepository
     public async Task<Profile> ImportWithId(string path)
     {
         var profile = await Load(path);
-        if (string.IsNullOrEmpty(profile.Id))
+        if (string.IsNullOrWhiteSpace(profile.Id) || !Guid.TryParse(profile.Id, out _))
         {
             profile.Id = Guid.NewGuid().ToString();
         }
